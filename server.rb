@@ -26,7 +26,7 @@ class Weather < Sinatra::Base
       puts 'grabbing from API ...'
       lat = params[:lat]
       lng = params[:lng]
-      forecast = ForecastIO.forecast(lat , lng, {exclude: "minutely,flags,alerts,hourly"})
+      forecast = ForecastIO.forecast(lat , lng, {:params=>{:exclude=>"minutely,flags,alerts,daily"}})
       @@redis.setex(params[:cityState] , 3600, forecast.to_json)
     end
 
